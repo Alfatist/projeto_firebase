@@ -1,3 +1,15 @@
 # projeto_firebase
 
 Um projeto flutter feito para praticar ferramentas do firebase.
+
+<details>
+<summary><h2>1. Configurando</h2></summary>
+
+Crie um projeto no firebase e então adicione os aplicativos android e iOS.
+iOS fica configurado, porém o android pode faltar algumas configurações, como versão mínima de sdk e etc.
+A princípio, se configurar errado, sequer vai buildar o app.
+
+</details>
+
+
+
