@@ -1,6 +1,6 @@
 # projeto_firebase
 
-Um projeto flutter feito para praticar ferramentas do firebase.
+Um projeto flutter feito para praticar ferramentas do firebase. Baseado no canal do Deivid Willyan
 
 <details>
 <summary><h2>1. Configurando</h2></summary>
@@ -19,5 +19,14 @@ Eu primeiro crio uma configuração local em custom_local_notification, e no cus
 configuro para se comunicar com o firebase. 
 
 Não se aplica a iOS, pois para isto precisa-se de um certificado de desenvolvedor
+
+</details>
+
+<details>
+<summary><h2>3. Remote Config</h2></summary>
+
+Talvez a parte mais simples. Remote config são basicamente variáveis passadas pelo firebase, para que o aplicativo pegue e use-o.
+No arquivo remote_config tem a periodicidade que o aplicativo vai buscar informação no firebase, e o método getValueOrDefault, 
+que pega o chave-valor da cache.
 
 </details>
