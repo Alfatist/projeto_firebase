@@ -9,10 +9,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  await CustomFirebaseMessaging().initialize();
-  await CustomFirebaseMessaging().getTokenFirebase();
 
+  /// nesta ordem para que consigamos fazer o exemplo remote + notification
   await CustomRemoteConfig().initialize();
+  await CustomFirebaseMessaging()
+      .initialize(() => CustomRemoteConfig().forceFetch());
+  await CustomFirebaseMessaging().getTokenFirebase();
 
   runApp(const MainApp());
 }
@@ -27,12 +29,7 @@ class MainApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       initialRoute: "/home",
       routes: {
-        "/home": (_) => Scaffold(
-              appBar: AppBar(),
-              body: const Center(
-                child: Text("página 1"),
-              ),
-            ),
+        "/home": (_) => MyHomePage(title: "título"),
         "/hidden": (_) => Scaffold(
               appBar: AppBar(),
               body: const Center(

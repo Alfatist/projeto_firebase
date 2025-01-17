@@ -13,13 +13,19 @@ class CustomFirebaseMessaging {
       CustomFirebaseMessaging._internal(CustomLocalNotification());
   factory CustomFirebaseMessaging() => _singleton;
 
-  Future<void> initialize() async {
+  Future<void> initialize(VoidCallback? callback) async {
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(badge: true, sound: true);
 
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+
+      if (message.data["forceFetch"] != null) {
+        print("Ei!! aaaaa");
+        callback?.call();
+        return; // para o usuário sequer receber a notificação
+      }
 
       if (notification != null && android != null) {
         _customLocalNotification.androidNotification(notification, android);

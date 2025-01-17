@@ -30,3 +30,11 @@ No arquivo remote_config tem a periodicidade que o aplicativo vai buscar informa
 que pega o chave-valor da cache.
 
 </details>
+
+<details>
+<summary><h2>4. lab Remote + push</h2></summary>
+
+Um laboratório demonstrando que, por exemplo, eu consigo forçar fetch por notificação. 
+P.s: perceba que alterando o valor de "isActiveBlue" não necessariamente muda a cor na hora, somente ao reiniciar o app.
+
+</details>
