@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_firebase/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:projeto_firebase/remote_config/custom_remote_config.dart';
@@ -6,17 +9,26 @@ import 'package:projeto_firebase/remote_config/custom_remote_config.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  /// Para fazer o teste de crash para ver se o crashlytics tá funcionando:
+  // FirebaseCrashlytics.instance.crash();
 
-  await Firebase.initializeApp();
+  /// Para colocar um log com texto customizado:
+  // FirebaseCrashlytics.instance.log("oi, esse é um log customizado");
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  /// nesta ordem para que consigamos fazer o exemplo remote + notification
-  await CustomRemoteConfig().initialize();
-  await CustomFirebaseMessaging()
-      .initialize(() => CustomRemoteConfig().forceFetch());
-  await CustomFirebaseMessaging().getTokenFirebase();
+    await Firebase.initializeApp();
 
-  runApp(const MainApp());
+    /// nesta ordem para que consigamos fazer o exemplo remote + notification
+    await CustomRemoteConfig().initialize();
+    await CustomFirebaseMessaging()
+        .initialize(() => CustomRemoteConfig().forceFetch());
+    await CustomFirebaseMessaging().getTokenFirebase();
+
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+    runApp(const MainApp());
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
 class MainApp extends StatelessWidget {
